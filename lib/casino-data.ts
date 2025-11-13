@@ -1,17 +1,17 @@
 export interface Casino {
-  id: string
-  name: string
-  logo: string
-  rating: number
-  bonuses: string[]
-  countries: string[]
-  payments: string[]
-  gameTypes: string[]
-  bonusTypes: string[]
-  providers: string[]
-  description: string
-  verified: boolean
-  featured: boolean
+  id: string;
+  name: string;
+  logo: string;
+  rating: number;
+  bonuses: string[];
+  countries: string[];
+  payments: string[];
+  gameTypes: string[];
+  bonusTypes: string[];
+  providers: string[];
+  description: string;
+  verified: boolean;
+  featured: boolean;
 }
 
 export const casinos: Casino[] = [
@@ -24,9 +24,15 @@ export const casinos: Casino[] = [
     countries: ["USA", "UK", "Canada", "Germany"],
     payments: ["USDT", "BITCOIN", "ETHERIUM", "VISA", "PAYPAL"],
     gameTypes: ["Slots", "Live Casino", "Sports", "Poker"],
-    bonusTypes: ["Welcome Bonus", "Free Credit Casinos", "Reload", "Crypto Deposit Bonus"],
+    bonusTypes: [
+      "Welcome Bonus",
+      "Free Credit Casinos",
+      "Reload",
+      "Crypto Deposit Bonus",
+    ],
     providers: ["PG Soft", "Pragmatic Play", "Evolution"],
-    description: "Premium casino with top-tier games and massive welcome bonuses.",
+    description:
+      "Premium casino with top-tier games and massive welcome bonuses.",
     verified: true,
     featured: true,
   },
@@ -41,7 +47,8 @@ export const casinos: Casino[] = [
     gameTypes: ["Slots", "Live Casino", "Esports", "Fishing Games"],
     bonusTypes: ["Welcome Bonus", "No Deposit Bonus", "Cashback Bonus", "VIP"],
     providers: ["JILI", "Pragmatic Play", "PG Soft"],
-    description: "Crypto-friendly casino with extensive esports betting options.",
+    description:
+      "Crypto-friendly casino with extensive esports betting options.",
     verified: true,
     featured: true,
   },
@@ -105,12 +112,20 @@ export const casinos: Casino[] = [
     verified: false,
     featured: false,
   },
-]
+];
 
 export const filterOptions = {
-  countries: ["USA", "UK", "Canada", "Germany", "Australia", "France", "Spain", "Mexico", "New Zealand"],
+  countries: ["Australia", "Bangladesh", "Brazil", "Canada"],
   payments: ["USDT", "BITCOIN", "ETHERIUM", "BANK", "VISA", "PAYPAL"],
-  gameTypes: ["Slots", "Live Casino", "Sports", "Esports", "Fishing Games", "Poker", "Lottery"],
+  gameTypes: [
+    "Slots",
+    "Live Casino",
+    "Sports",
+    "Esports",
+    "Fishing Games",
+    "Poker",
+    "Lottery",
+  ],
   bonusTypes: [
     "Welcome Bonus",
     "No Deposit Bonus",
@@ -122,4 +137,4 @@ export const filterOptions = {
     "Crypto Deposit Bonus",
   ],
   providers: ["PG Soft", "Pragmatic Play", "JILI", "Evolution"],
-}
+};

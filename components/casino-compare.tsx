@@ -1,43 +1,65 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { casinos, type Casino } from "@/lib/casino-data"
-import { Star, CheckCircle2, X, Sparkles, Trophy, CreditCard, Gamepad2, Gift, Globe } from "lucide-react"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import Image from "next/image"
+import { useState } from "react";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { casinos, type Casino } from "@/lib/casino-data";
+import {
+  Star,
+  CheckCircle2,
+  X,
+  Sparkles,
+  Trophy,
+  CreditCard,
+  Gamepad2,
+  Gift,
+  Globe,
+  Plus,
+} from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import Image from "next/image";
 
 export function CasinoCompare() {
-  const [selectedCasinos, setSelectedCasinos] = useState<Casino[]>([])
-  const [showAnalysis, setShowAnalysis] = useState(false)
+  const [selectedCasinos, setSelectedCasinos] = useState<Casino[]>([]);
+  const [showAnalysis, setShowAnalysis] = useState(false);
 
-  const availableCasinos = casinos.filter((c) => !selectedCasinos.find((sc) => sc.id === c.id))
+  const availableCasinos = casinos.filter(
+    (c) => !selectedCasinos.find((sc) => sc.id === c.id)
+  );
 
   const addCasino = (casinoId: string) => {
-    if (selectedCasinos.length >= 3) return
-    const casino = casinos.find((c) => c.id === casinoId)
+    if (selectedCasinos.length >= 3) return;
+    const casino = casinos.find((c) => c.id === casinoId);
     if (casino) {
-      setSelectedCasinos([...selectedCasinos, casino])
-      setShowAnalysis(false)
+      setSelectedCasinos([...selectedCasinos, casino]);
+      setShowAnalysis(false);
     }
-  }
+  };
 
   const removeCasino = (casinoId: string) => {
-    setSelectedCasinos(selectedCasinos.filter((c) => c.id !== casinoId))
-    setShowAnalysis(false)
-  }
+    setSelectedCasinos(selectedCasinos.filter((c) => c.id !== casinoId));
+    setShowAnalysis(false);
+  };
 
   const analyzeComparison = () => {
-    setShowAnalysis(true)
-  }
+    setShowAnalysis(true);
+  };
 
   return (
     <div className="space-y-8">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {[0, 1, 2].map((index) => (
-          <Card key={index} className="overflow-hidden border-2 hover:border-primary/50 transition-colors">
+          <Card
+            key={index}
+            className="overflow-hidden border-0 py-0 hover:border-primary/50 transition-colors"
+          >
             {selectedCasinos[index] ? (
               <div className="relative">
                 <div className="h-32 bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center relative overflow-hidden">
@@ -59,7 +81,9 @@ export function CasinoCompare() {
                 </div>
                 <div className="p-4">
                   <div className="flex items-start justify-between gap-2 mb-2">
-                    <h3 className="font-bold text-lg">{selectedCasinos[index].name}</h3>
+                    <h3 className="font-bold text-lg">
+                      {selectedCasinos[index].name}
+                    </h3>
                     {selectedCasinos[index].verified && (
                       <Badge className="bg-primary text-primary-foreground">
                         <CheckCircle2 className="w-3 h-3 mr-1" />
@@ -78,29 +102,40 @@ export function CasinoCompare() {
                         }`}
                       />
                     ))}
-                    <span className="text-sm font-semibold ml-1">{selectedCasinos[index].rating}</span>
+                    <span className="text-sm font-semibold ml-1">
+                      {selectedCasinos[index].rating}
+                    </span>
                   </div>
                   <div className="flex flex-wrap gap-1">
-                    {selectedCasinos[index].bonuses.slice(0, 2).map((bonus, i) => (
-                      <Badge key={i} variant="outline" className="text-xs">
-                        {bonus}
-                      </Badge>
-                    ))}
+                    {selectedCasinos[index].bonuses
+                      .slice(0, 2)
+                      .map((bonus, i) => (
+                        <Badge key={i} variant="outline" className="text-xs">
+                          {bonus}
+                        </Badge>
+                      ))}
                   </div>
                 </div>
               </div>
             ) : (
               <Select onValueChange={addCasino}>
-                <SelectTrigger className="h-full min-h-[240px] border-2 border-dashed hover:border-primary/50 transition-colors">
+                <SelectTrigger
+                  hideIndicator
+                  className="h-full min-h-[240px] cursor-pointer w-full items-center justify-center border-2 border-dashed hover:border-primary/50 transition-colors"
+                >
                   <SelectValue
                     placeholder={
                       <div className="flex flex-col items-center justify-center gap-3 py-8">
                         <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
-                          <Sparkles className="w-8 h-8 text-primary" />
+                          <Plus className="w-8 h-8 text-primary" />
                         </div>
                         <div className="text-center">
-                          <div className="font-semibold text-lg mb-1">Casino Slot {index + 1}</div>
-                          <p className="text-sm text-muted-foreground">Click to select a casino</p>
+                          <div className="font-semibold text-lg mb-1">
+                            Casino Slot {index + 1}
+                          </div>
+                          <p className="text-sm text-muted-foreground">
+                            Click to select a casino
+                          </p>
                         </div>
                       </div>
                     }
@@ -142,7 +177,9 @@ export function CasinoCompare() {
           className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground font-semibold px-8 py-6 text-lg disabled:from-muted disabled:to-muted"
         >
           <Sparkles className="w-5 h-5 mr-2" />
-          {selectedCasinos.length < 2 ? "Select at least 2 casinos" : "Analyze & Compare"}
+          {selectedCasinos.length < 2
+            ? "Select at least 2 casinos"
+            : "Analyze & Compare"}
         </Button>
       </div>
 
@@ -153,7 +190,9 @@ export function CasinoCompare() {
             {selectedCasinos.map((casino, idx) => (
               <Card
                 key={casino.id}
-                className={`p-6 relative overflow-hidden ${idx === 0 ? "border-primary border-2" : ""}`}
+                className={`p-6 relative overflow-hidden ${
+                  idx === 0 ? "border-primary border-2" : ""
+                }`}
               >
                 {idx === 0 && (
                   <div className="absolute top-3 right-3">
@@ -178,11 +217,15 @@ export function CasinoCompare() {
                         <Star
                           key={i}
                           className={`w-4 h-4 ${
-                            i < Math.floor(casino.rating) ? "fill-primary text-primary" : "text-muted-foreground/30"
+                            i < Math.floor(casino.rating)
+                              ? "fill-primary text-primary"
+                              : "text-muted-foreground/30"
                           }`}
                         />
                       ))}
-                      <span className="text-sm font-semibold ml-1">{casino.rating}</span>
+                      <span className="text-sm font-semibold ml-1">
+                        {casino.rating}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -213,7 +256,11 @@ export function CasinoCompare() {
                     <div className="font-medium text-sm">{casino.name}</div>
                     <div className="flex flex-wrap gap-2">
                       {casino.payments.map((payment) => (
-                        <Badge key={payment} variant="secondary" className="text-xs">
+                        <Badge
+                          key={payment}
+                          variant="secondary"
+                          className="text-xs"
+                        >
                           {payment}
                         </Badge>
                       ))}
@@ -235,7 +282,11 @@ export function CasinoCompare() {
                     <div className="font-medium text-sm">{casino.name}</div>
                     <div className="flex flex-wrap gap-2">
                       {casino.gameTypes.map((game) => (
-                        <Badge key={game} variant="secondary" className="text-xs">
+                        <Badge
+                          key={game}
+                          variant="secondary"
+                          className="text-xs"
+                        >
                           {game}
                         </Badge>
                       ))}
@@ -254,8 +305,12 @@ export function CasinoCompare() {
               <div className="space-y-3">
                 {selectedCasinos.map((casino) => (
                   <div key={casino.id} className="p-3 bg-secondary rounded-lg">
-                    <div className="font-medium text-sm mb-1">{casino.name}</div>
-                    <div className="text-primary font-bold">{casino.bonuses[0]}</div>
+                    <div className="font-medium text-sm mb-1">
+                      {casino.name}
+                    </div>
+                    <div className="text-primary font-bold">
+                      {casino.bonuses[0]}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -273,7 +328,11 @@ export function CasinoCompare() {
                     <div className="font-medium text-sm">{casino.name}</div>
                     <div className="flex flex-wrap gap-2">
                       {casino.countries.map((country) => (
-                        <Badge key={country} variant="outline" className="text-xs">
+                        <Badge
+                          key={country}
+                          variant="outline"
+                          className="text-xs"
+                        >
                           {country}
                         </Badge>
                       ))}
@@ -294,14 +353,20 @@ export function CasinoCompare() {
                 <div className="space-y-4">
                   {(() => {
                     const bestRated = selectedCasinos.reduce((prev, current) =>
-                      current.rating > prev.rating ? current : prev,
-                    )
-                    const mostBonuses = selectedCasinos.reduce((prev, current) =>
-                      current.bonuses.length > prev.bonuses.length ? current : prev,
-                    )
-                    const mostPayments = selectedCasinos.reduce((prev, current) =>
-                      current.payments.length > prev.payments.length ? current : prev,
-                    )
+                      current.rating > prev.rating ? current : prev
+                    );
+                    const mostBonuses = selectedCasinos.reduce(
+                      (prev, current) =>
+                        current.bonuses.length > prev.bonuses.length
+                          ? current
+                          : prev
+                    );
+                    const mostPayments = selectedCasinos.reduce(
+                      (prev, current) =>
+                        current.payments.length > prev.payments.length
+                          ? current
+                          : prev
+                    );
 
                     return (
                       <>
@@ -310,32 +375,45 @@ export function CasinoCompare() {
                             <Trophy className="w-5 h-5 text-primary" />
                             <h4 className="font-semibold">Overall Winner</h4>
                           </div>
-                          <p className="text-primary font-bold text-lg mb-1">{bestRated.name}</p>
+                          <p className="text-primary font-bold text-lg mb-1">
+                            {bestRated.name}
+                          </p>
                           <p className="text-sm text-muted-foreground">
-                            With a rating of {bestRated.rating}/5.0, this casino offers the best overall experience with
-                            excellent reliability and user satisfaction.
+                            With a rating of {bestRated.rating}/5.0, this casino
+                            offers the best overall experience with excellent
+                            reliability and user satisfaction.
                           </p>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div className="p-4 bg-background rounded-lg">
-                            <h4 className="font-semibold mb-2 text-sm">Best for Bonuses</h4>
-                            <p className="text-primary font-medium">{mostBonuses.name}</p>
+                            <h4 className="font-semibold mb-2 text-sm">
+                              Best for Bonuses
+                            </h4>
+                            <p className="text-primary font-medium">
+                              {mostBonuses.name}
+                            </p>
                             <p className="text-xs text-muted-foreground mt-1">
-                              {mostBonuses.bonuses.length} different bonus offers
+                              {mostBonuses.bonuses.length} different bonus
+                              offers
                             </p>
                           </div>
 
                           <div className="p-4 bg-background rounded-lg">
-                            <h4 className="font-semibold mb-2 text-sm">Most Payment Options</h4>
-                            <p className="text-primary font-medium">{mostPayments.name}</p>
+                            <h4 className="font-semibold mb-2 text-sm">
+                              Most Payment Options
+                            </h4>
+                            <p className="text-primary font-medium">
+                              {mostPayments.name}
+                            </p>
                             <p className="text-xs text-muted-foreground mt-1">
-                              {mostPayments.payments.length} payment methods supported
+                              {mostPayments.payments.length} payment methods
+                              supported
                             </p>
                           </div>
                         </div>
                       </>
-                    )
+                    );
                   })()}
                 </div>
               </div>
@@ -344,5 +422,5 @@ export function CasinoCompare() {
         </div>
       )}
     </div>
-  )
+  );
 }
